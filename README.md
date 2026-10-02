@@ -1,68 +1,68 @@
 # Space Attack
 
-A small Canvas arcade shooter inspired by the 1982 Emerson Arcadia 2001 game.
-Plain HTML, CSS, and native JavaScript modules; no libraries or build step.
+A modern browser take on **Space Attack** (1982) for the **Emerson Arcadia 2001**. [Play it](https://blugart-dev.github.io/space-attack/).
 
-Serve this directory locally with `python -m http.server 8000 --bind 127.0.0.1`, then open `http://localhost:8000` in Chrome. ES modules require HTTP rather than opening `index.html` directly. The same files can be hosted on GitHub Pages; all asset and module paths are relative.
+## Features
 
-## Source layout
+- Enemy formations, diving attacks, and increasingly difficult waves.
+- Score, three lives, respawn protection, and a saved high score.
+- Start, game-over, restart, and pause screens; automatic pause on focus loss.
+- Canvas graphics and synthesized arcade sound effects with a mute toggle.
 
-- `index.html`: page structure, HUD, overlays, and playfield.
-- `styles.css`: theme, component styling, and responsive rules.
-- `src/main.js`: startup, keyboard/focus handling, and fixed-step animation loop.
-- `src/config.js`: gameplay constants, dimensions, states, and difficulty parameters.
-- `src/game.js`: mission state, entities, simulation, collisions, and progression.
-- `src/renderer.js`: sprite data and Canvas drawing.
-- `src/audio.js`: synthesized sound effects and mute preference.
-- `src/ui.js`: HUD, overlay, button, and accessibility announcement updates.
+## Screenshots
 
-`main.js` connects the components. The game owns its state and invokes the injected
-UI/audio collaborators at the existing points in the simulation. The renderer
-reads snapshots without modifying entities. Positions and hitboxes use logical
-Canvas pixels; simulation durations use seconds.
+Start screen, active combat, and game over with a saved high score (1366 × 768).
 
-High scores are saved immediately when exceeded, using the localStorage key
-`space-attack.high-score`, and restored on page load. Records are specific to this
-browser and site origin: localhost and GitHub Pages have separate records. If
-storage is unavailable, gameplay continues with a high score kept for that page.
-Only a strictly higher score earns the special game-over message; ties show
-`MISSION LOST`. Mute preference still lasts only until the page is refreshed.
+![Start screen](./screenshots/01-start-screen.png)
+![Gameplay with a diving enemy and enemy fire](./screenshots/02-gameplay-divers-and-fire.png)
+![Game over with a saved high score](./screenshots/05-game-over-high-score.png)
 
 ## Controls
 
-- Left/right arrows or A/D: move.
-- Hold Space: fire.
-- Enter: start, restart, or resume when paused.
-- P or Escape: pause/resume.
-- M: mute/unmute.
+| Key | Action |
+| --- | --- |
+| Left/right arrows or A/D | Move |
+| Hold Space | Fire |
+| Enter | Start, restart, or resume |
+| P or Escape | Pause/resume |
+| M | Mute/unmute |
 
-## Manual regression checklist
+## Run locally
 
-- Compare the start screen, ship/enemy sprites, HUD, sidebar, and narrow-window layout.
-- Start with Enter and the button; check movement limits and firing while moving.
-- Confirm formation movement, diving/returning ships, and enemy fire behave as before.
-- Check 100-point formation kills, 200-point diving kills, and squadron progress.
-- Take projectile and ship hits; check three lives, respawn at center, and temporary protection.
-- Clear waves and confirm transition timing and increasing difficulty.
-- Pause with P/Escape and the button; switch away and return, including during a wave transition.
-- Take a hit and pause immediately while the scene is shaking; leave it paused
-  for a few seconds. The scene must stay completely still, then continue on resume.
-- Check diagonal rockets from diving ships: crossings of the player should cause
-  damage, while near misses should not. Straight rockets and player shots should
-  still work normally; respawn protection should still prevent damage.
-- Check sound effects and mute; lose all lives and restart repeatedly. Score/wave/lives
-  reset, while the high score and mute preference persist across mission restarts.
-- Beat the high score, refresh before game over, and confirm `HIGH SCORE` retains
-  the new record. Close/reopen the page on the same origin and confirm it again.
-- Lose with a score below or equal to the record: the message should be `MISSION
-  LOST`. Beat it and lose: the message should remain `YOUR BEST FLIGHT YET`.
-- Optionally use Chrome DevTools to put an invalid value in the storage key or
-  block site storage. The game should still start and play normally.
+From the project directory, run:
 
-## Targeted fixes
+```sh
+python -m http.server 8000 --bind 127.0.0.1
+```
 
-- High-score persistence and the `HIGH SCORE` label.
-- Loss wording on game over, preserving the special message for a new record.
-- Frozen Canvas rendering while paused, including screen shake.
-- Full segment collision checks for enemy rockets, using both previous coordinates
-  and the combined rocket/player hitboxes. Player-shot collision is unchanged.
+Open [localhost:8000](http://localhost:8000) in Chrome. Native ES modules require HTTP, so opening `index.html` directly will not work. No installation or build step is needed.
+
+## Project structure
+
+```text
+index.html       Page structure, HUD, and overlays
+styles.css       Styling and responsive layout
+src/
+  main.js        Initialization, input, and animation loop
+  config.js      Constants and difficulty parameters
+  game.js        State, simulation, collisions, and waves
+  renderer.js    Sprites and Canvas drawing
+  audio.js       Synthesized effects and mute state
+  ui.js          HUD, screens, and announcements
+```
+
+## Design decisions
+
+- Plain HTML, CSS, and six ES modules keep responsibilities clear without a framework.
+- A fixed simulation timestep keeps gameplay speed consistent across refresh rates; swept collision checks cover projectile movement between steps.
+- Game graphics and audio are generated in code; gameplay loads no image or audio files.
+
+## Known limitations
+
+- Keyboard only; no touch or gamepad controls.
+- Mute preference is not saved across page refreshes.
+- High scores are stored per browser and site origin, not shared online. If localStorage is unavailable, the record lasts only for the current page.
+
+## Development
+
+Built with Codex. Development prompts: [prompts.md](./prompts.md).
