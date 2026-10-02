@@ -1,6 +1,6 @@
 # Space Attack
 
-A modern browser take on **Space Attack** (1982) for the **Emerson Arcadia 2001**. [Play it](https://blugart-dev.github.io/space-attack/).
+A modern browser take on **Space Attack** (1982) for the **Emerson Arcadia 2001**. [Play it](https://space-attack.blugart.chatgpt.site).
 
 ## Features
 

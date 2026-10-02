@@ -36,6 +36,8 @@ Please don't write any code yet. First I'd like us to research the reference and
 </send_user_message_question_reply>
 ```
 
+Note: Selected a faithful core with modern polish and synthesized arcade sound effects with a mute toggle.
+
 ## 3
 
 ```text
@@ -58,6 +60,8 @@ Tell me which changes would you make, show me a plan, and we'll work with it.
 You are limiting yourself. We don't need everything to be in the .html. Think about clean code practices, and HTML5, CSS, and JavaScript good practices. We do not want to change gameplay, but we want to present everything how a senior web game developer would.
 ```
 
+Note: Redirected the single-file cleanup toward separate HTML, CSS, and JavaScript files and clean code practices.
+
 ## 6
 
 ```text
@@ -65,7 +69,7 @@ Good plan, but it's more than we need for a project this size. Let's trim it:
 
 
 
-- Keep index.html and styles.css, and around five or six modules in [REDACTED: local directory path] (main, config, game, renderer, audio, ui). Fold input into ui or main.
+- Keep index.html and styles.css, and around five or six modules in src/ (main, config, game, renderer, audio, ui). Fold input into ui or main.
 - Use ES modules. It'll be hosted on GitHub Pages, so just add a line to the README on how to serve it locally.
 - Skip the baseline recording, the test harness, and the random-source injection. I'll playtest it manually.
 - Do it in one pass.
@@ -74,6 +78,8 @@ Good plan, but it's more than we need for a project this size. Let's trim it:
 
 No gameplay or visual changes. If you spot bugs, list them instead of fixing them. When you're done, give me a short checklist of what to playtest to confirm nothing changed.
 ```
+
+Note: Trimmed the proposed architecture to about six modules and a single refactoring pass, with manual playtesting instead of extra testing infrastructure.
 
 ## 7
 
@@ -117,7 +123,7 @@ Keep it under a page.
 ```text
 Please rewrite README.md for reviewers seeing this project for the first
 time. Keep it short. Include: a one-line description with a "Play it" link
-to [REDACTED: GitHub account URL], what the game is (a modern
+to https://blugart-dev.github.io/space-attack/, what the game is (a modern
 take on Space Attack for the Emerson Arcadia 2001), features, controls, how
 to run it locally, project structure, key design decisions, known
 limitations (keyboard only, mute isn't saved, high score is per browser),
@@ -144,11 +150,28 @@ Replace any local file paths or personal information with
 ## 11
 
 ```text
-Capture gameplay screenshots of the current version. Serve the project locally and use a headless browser to take 5 PNGs at 1366x768: start screen, gameplay with divers and enemy fire, wave banner, pause screen, and game over with the high score. Save them in [REDACTED: local directory path] with clear names. Don't add any tooling or dependencies to the repo, and don't change game code. If you can't run a browser, tell me and I'll take them myself.
+Capture gameplay screenshots of the current version. Serve the project locally and use a headless browser to take 5 PNGs at 1366x768: start screen, gameplay with divers and enemy fire, wave banner, pause screen, and game over with the high score. Save them in screenshots/ with clear names. Don't add any tooling or dependencies to the repo, and don't change game code. If you can't run a browser, tell me and I'll take them myself.
 ```
 
 ## 12
 
 ```text
 Add a short "Screenshots" section to the README showing two or three of the images. Then check that README, prompts.md and screenshots all describe the current version, and commit everything with the message "Final submission". Tell me the full commit hash.
+```
+
+## 13
+
+```text
+Please save the current commit as a version with Sites and deploy it. Set access so reviewers can open it without a player account. Give me the live URL and the commit it was built from. If Sites isn't available to me, tell me, and instead enable GitHub Pages for this repo (main branch, root) using the gh CLI if it's installed and authenticated. Otherwise tell me and I'll enable it in the GitHub settings.
+```
+
+## 14
+
+```text
+Last pass before I submit: 
+
+- Point the README's "Play it" link to the live URL from the last step.
+- In prompts.md, undo the extra redactions (prompts 6 and 11 should say src/ and screenshots/, prompt 9 should keep the Pages URL). Only redact real personal info.
+- Add one-line notes under prompt 2 (my two answers) and prompts 5 and 6 (the redirections), and append the deploy prompt and this one verbatim.
+- Don't touch any game code. Then commit as "Final submission", push to main, redeploy that exact commit, and give me the full hash, the live URL, and GitHub links pinned to that hash for the repo, screenshots/, and prompts.md.
 ```
