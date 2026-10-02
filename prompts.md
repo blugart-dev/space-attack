@@ -175,3 +175,18 @@ Last pass before I submit:
 - Add one-line notes under prompt 2 (my two answers) and prompts 5 and 6 (the redirections), and append the deploy prompt and this one verbatim.
 - Don't touch any game code. Then commit as "Final submission", push to main, redeploy that exact commit, and give me the full hash, the live URL, and GitHub links pinned to that hash for the repo, screenshots/, and prompts.md.
 ```
+
+## 15
+
+```text
+Let's remove the duplicated dist/ folder from the repo. dist/ is an exact copy of the source, and I don't want two copies in version control. 
+ 
+First check how Sites can work without it: either serve the project root directly, or generate dist/ at deploy time (and gitignore it), whichever Sites supports. If neither works, tell me before deleting anything. 
+ 
+If it works: 
+- Update .openai/hosting.json, remove dist/ from the repo, and add a .gitignore if needed. 
+- Don't touch any game code. 
+- Redeploy and confirm the live URL still serves the game correctly. 
+- Append this prompt verbatim to prompts.md. 
+- Commit as "Remove duplicated dist output", push to main, and give me the full hash plus GitHub links pinned to it for the repo, screenshots/, and prompts.md.
+```
